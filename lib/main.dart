@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-part 'main.g.dart';
+import 'package:riverpod2_counter/counter.dart';
 
 void main() {
   runApp(
@@ -25,15 +23,10 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends ConsumerWidget {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    _counter++;
-  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final String helloWorld = ref.watch(helloWorldProvider);
+    final int state = ref.watch(counterProvider);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -46,22 +39,21 @@ class MyHomePage extends ConsumerWidget {
               'You have pushed the button this many times:',
             ),
             Text(
-              helloWorld,
+              '$state',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: (){
+          final notifier = ref.read(counterProvider.notifier);
+          notifier.incrementCounter();
+          // ref.read(counterProvider.notifier).incrementCounter();
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
-}
-
-@riverpod
-String helloWorld(HelloWorldRef ref) {
-  return 'Hello world';
 }
