@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod2_counter/counter.dart';
+import 'package:riverpod2_counter/random_color.dart';
 
 void main() {
   runApp(
@@ -27,6 +28,7 @@ class MyHomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final int state = ref.watch(counterProvider);
+    final Color color = ref.watch(randomColorProvider);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -40,7 +42,10 @@ class MyHomePage extends ConsumerWidget {
             ),
             Text(
               '$state',
-              style: Theme.of(context).textTheme.headlineMedium,
+              style: TextStyle(
+                color: color,
+                fontSize: 64,
+              ),
             ),
           ],
         ),
@@ -48,6 +53,13 @@ class MyHomePage extends ConsumerWidget {
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          FloatingActionButton(
+            onPressed: () {
+              final notifier = ref.read(randomColorProvider.notifier);
+              notifier.randomColor();
+            },
+            child: const Icon(Icons.color_lens),
+          ),
           FloatingActionButton(
             onPressed: () {
               final notifier = ref.read(counterProvider.notifier);
