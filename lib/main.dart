@@ -45,14 +45,27 @@ class MyHomePage extends ConsumerWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          final notifier = ref.read(counterProvider.notifier);
-          notifier.incrementCounter();
-          // ref.read(counterProvider.notifier).incrementCounter();
-        },
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: (){
+              final notifier = ref.read(counterProvider.notifier);
+              notifier.decrementCounter();
+            },
+            tooltip: 'Increment',
+            child: const Icon(Icons.remove),
+          ),
+          FloatingActionButton(
+            onPressed: (){
+              final notifier = ref.read(counterProvider.notifier);
+              notifier.incrementCounter();
+              // ref.read(counterProvider.notifier).incrementCounter();
+            },
+            tooltip: 'Increment',
+            child: const Icon(Icons.add),
+          ),
+        ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
