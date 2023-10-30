@@ -15,4 +15,12 @@ class Counter extends _$Counter {
   void decrementCounter() {
     state--;
   }
+
+  void resetCounter() {
+    state = 0;
+  }
+
+  void multiplyCounter() {
+    state *= state;
+  }
 }

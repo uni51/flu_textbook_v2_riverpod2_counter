@@ -49,11 +49,17 @@ class MyHomePage extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
+            onPressed: () {
+              final notifier = ref.read(counterProvider.notifier);
+              notifier.resetCounter();
+            },
+            child: const Icon(Icons.exposure_zero),
+          ),
+          FloatingActionButton(
             onPressed: (){
               final notifier = ref.read(counterProvider.notifier);
               notifier.decrementCounter();
             },
-            tooltip: 'Increment',
             child: const Icon(Icons.remove),
           ),
           FloatingActionButton(
@@ -62,8 +68,14 @@ class MyHomePage extends ConsumerWidget {
               notifier.incrementCounter();
               // ref.read(counterProvider.notifier).incrementCounter();
             },
-            tooltip: 'Increment',
             child: const Icon(Icons.add),
+          ),
+          FloatingActionButton(
+            onPressed: () {
+              final notifier = ref.read(counterProvider.notifier);
+              notifier.multiplyCounter();
+            },
+            child: const Icon(Icons.close),
           ),
         ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
